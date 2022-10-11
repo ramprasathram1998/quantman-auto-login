@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.3",
+    "otpauth": "^8.0.3",
     "selenium-webdriver": "^4.1.1"
   },
   "engines": {

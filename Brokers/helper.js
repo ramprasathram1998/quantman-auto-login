@@ -1,3 +1,5 @@
+const OTPAuth = require('otpauth');
+
 const customizedSplit = (values = []) => values.split(',').map(value => value.trim())
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -10,11 +12,17 @@ const QUANTMAN_SIGN_IN_URL = 'https://www.quantman.in/users/sign_in';
 
 const ZEBU_LOGIN_URL = 'https://zebull.in/#/login';
 
+const fetchTOTP = async (broker,totpSecretKey) => {
+  const totp_uri = OTPAuth.URI.parse(`otpauth://totp/${broker}?secret=${totpSecretKey}`);
+  return totp_uri.generate();
+};
+
 module.exports = {
   customizedSplit,
   delay,
   screen,
   QUANTMAN_URL,
   QUANTMAN_SIGN_IN_URL,
-  ZEBU_LOGIN_URL
+  ZEBU_LOGIN_URL,
+  fetchTOTP
 };
