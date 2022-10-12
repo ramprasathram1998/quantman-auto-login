@@ -15,6 +15,8 @@ const doLoginIcici = async (username, password, pin) => {
   console.log(`STEP 1: ENTER FLATTRADE USER ID IN QUANTMAN MODAL AND CLICK LOGIN`);
   await driver.findElement(By.id("flattrade-user-auth")).click();
   await driver.findElement(By.id("flattrade-client-id")).sendKeys(username);
+
+  await delay(1000);
   await driver.findElement(By.id("btn-flattrade")).click();
 
   console.log(`STEP 2: ENTER FLATTRADE CREDS IN BROKER LOGIN PAGE`);
