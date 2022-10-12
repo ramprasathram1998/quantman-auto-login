@@ -2,10 +2,43 @@ const { delay, screen, QUANTMAN_URL } = require('./helper');
 const { Builder, By, until } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 
-const doLoginAliceBlue = async (username, password, pin) => {
+
+const getFieldValue = (value, { password, pin, yearOfBirth }) => {
+  let result;
+
+  if (value.includes('M-Pin')) {
+    result = pin;
+  } else if(value.includes('Password')) {
+    result = password;
+  } else if(value.includes('Year Of Birth')) {
+    result = yearOfBirth;
+  }
+
+  return result;
+};
+
+const recursivelyCheckAndFillValues = async (driver, args) => {
+  const isAnyOtherFieldRequired = await driver.findElement(By.css("label.fsize12")).then(() => true).catch(() => false);
+
+  if(isAnyOtherFieldRequired) {
+    const fieldName = await driver.findElement(By.css("label.fsize12")).getText();
+    const fieldValue = await getFieldValue(fieldName, args);
+
+    console.log(`STEP 3.1: ENTER ${fieldName}: ${fieldValue}`);
+    await driver.findElement(By.css('input[type=password]')).sendKeys(fieldValue);
+    await driver.findElement(By.css('button.fsize14')).click();
+
+    await delay(1000);
+    await recursivelyCheckAndFillValues(driver, args);
+  } 
+
+  return;
+};
+
+const doLoginAliceBlue = async (username, password, pin, yearOfBirth) => {
   var driver = new Builder()
     .forBrowser('chrome')
-    .setChromeOptions(new chrome.Options().headless().windowSize(screen))
+    // .setChromeOptions(new chrome.Options().headless().windowSize(screen))
     .build();
   console.log('Browser initialized');
 
@@ -15,33 +48,26 @@ const doLoginAliceBlue = async (username, password, pin) => {
   console.log('Login Page opened');
 
   await delay(1000);
-  (await driver.findElement(By.name('client_id'))).sendKeys(username);
-  (await driver.findElement(By.name('password'))).sendKeys(password);
-  console.log(`step 1 completed`);
 
-  await delay(500);
-  (await driver.findElement(By.xpath("//button[@type = 'submit']"))).click();
-  console.log(`step 2 completed`);
+  console.log(`STEP 1: ENTER USERNAME IN BROKER PAGE`);
+  await driver.findElement(By.css('input.input-field')).sendKeys(username);
 
-  await delay(1000);
-  (await driver.findElement(By.name('answer1'))).sendKeys(pin);
-  console.log(`step 3 completed `);
+  console.log(`STEP 2: CLICK NEXT TO CONTINUE`);
+  await driver.findElement(By.css('button.fsize14')).click();
 
-  await delay(500);
-  (await driver.findElement(By.xpath("//button[@type = 'submit']"))).click();
-  console.log(`step 4 completed `);
+  console.log(`STEP 3: ENTER PIN/PASS/YOB IF ASKED`);
+  await recursivelyCheckAndFillValues(driver, { username, password, pin, yearOfBirth });
 
+  console.log(`STEP 4: CHECK RETURNED TO QUANTMAN PAGE`);
   await driver.wait(until.titleIs('Quantman'), 3000);
-  console.log(`step 5 completed `);
 
   await driver.quit();
 };
 
-
 const doLogin = async (args) => {
   const { username, password, pin } = args;
 
-  await doLoginAliceBlue(username, password, pin)
+  await doLoginAliceBlue(username, password, pin, '1988')
     .then(() => {
       console.log('successfully completed')
     })
