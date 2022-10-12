@@ -1,12 +1,9 @@
-const { delay, screen, QUANTMAN_SIGN_IN_URL } = require('./helper');
-const { Builder, By, until } = require('selenium-webdriver');
-const chrome = require('selenium-webdriver/chrome');
+const { By, until } = require('selenium-webdriver');
+const { delay, initializeBrowserDriver } = require('./helper');
 
 const doLoginIcici = async (username, password, pin) => {
-  var driver = new Builder()
-    .forBrowser('chrome')
-    // .setChromeOptions(new chrome.Options().headless().windowSize(screen))
-    .build();
+  const driver = initializeBrowserDriver();
+
   console.log('Browser initialized');
 
   driver.manage().setTimeouts({ implicit: 3000, pageLoad: 300000, script: 30000 })

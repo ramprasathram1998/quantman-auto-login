@@ -30,4 +30,6 @@ jobs:
           BROKERS: ${{ secrets.BROKERS }}
           SECURITY_QUESTIONS1: ${{ secrets.SECURITY_QUESTIONS1 }}
           SECURITY_QUESTIONS2: ${{ secrets.SECURITY_QUESTIONS2 }}
+          TOTP_SECRET_KEYS: ${{ secrets.TOTP_SECRET_KEYS }}
+          YEAR_OF_BIRTH: ${{ secrets.YEAR_OF_BIRTH }}
         run: CHROMIUM_BIN=$(which chrome) npm run start
