@@ -17,7 +17,10 @@ const doLoginIcici = async (username, password, pin) => {
   await driver.findElement(By.id("flattrade-client-id")).sendKeys(username);
 
   await delay(1000);
-  await driver.findElement(By.id("btn-flattrade")).click();
+  await driver
+    .findElement(By.className("modal-content"))
+    .findElement(By.className("modal-footer"))
+    .findElement(By.id("btn-flattrade")).click();
 
   console.log(`STEP 2: ENTER FLATTRADE CREDS IN BROKER LOGIN PAGE`);
   // Put delay between input fields, problem due to autofocus. Need to optimize.
