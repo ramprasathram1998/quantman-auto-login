@@ -43,14 +43,13 @@ const doLoginFyers = async (username, password, pin, totpSecretKey) => {
   console.log('Login Page opened');
   await delay(1000);
 
-  console.log(`STEP 1: [ENTER USER_ID] Initiated`);
+  console.log(`STEP 1: ENTER USER_ID`);
   await driver.findElement(By.name('fy_client_id')).sendKeys(username);
   await driver.findElement(By.id('clientIdSubmit')).click();
-  console.log(`STEP 1: [ENTER USER_ID] completed`);
 
   await delay(1000);
 
-  console.log(`STEP 2: [ENTER TOTP] Initiated`);
+  console.log(`STEP 2: ENTER TOTP`);
   await enterTOTP(driver, totpSecretKey, false);
 
   await delay(1000);
@@ -62,11 +61,10 @@ const doLoginFyers = async (username, password, pin, totpSecretKey) => {
     await delay(1000);
     await enterTOTP(driver, totpSecretKey, true);
   }
-  console.log(`STEP 2: [ENTER TOTP] Completed`);
 
   await delay(1000);
 
-  console.log(`STEP 3: [ENTER PIN] Intiated`);
+  console.log(`STEP 3: ENTER PIN`);
   const verifyPinForm = By.id('verifyPinForm');
 
   await driver.findElement(verifyPinForm).findElement(By.id('first')).sendKeys(pin[0]);
@@ -75,11 +73,10 @@ const doLoginFyers = async (username, password, pin, totpSecretKey) => {
   await driver.findElement(verifyPinForm).findElement(By.id('fourth')).sendKeys(pin[3]);
 
   await driver.findElement(verifyPinForm).findElement(By.id('verifyPinSubmit')).click();
-  console.log(`STEP 3: [ENTER PIN] Completed`);
 
   await delay(1000);
 
-  console.log(`STEP 4: [CHECK RETURN TO QUANTMAN PAGE]`);
+  console.log(`STEP 4: CHECK RETURN TO QUANTMAN PAGE`);
   await driver.wait(until.titleIs('Quantman'), 3000);
   await driver.quit();
 };
