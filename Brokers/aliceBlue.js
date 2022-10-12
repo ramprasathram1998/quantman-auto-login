@@ -65,9 +65,9 @@ const doLoginAliceBlue = async (username, password, pin, yearOfBirth) => {
 };
 
 const doLogin = async (args) => {
-  const { username, password, pin } = args;
+  const { username, password, pin, yearOfBirth } = args;
 
-  await doLoginAliceBlue(username, password, pin, '1988')
+  await doLoginAliceBlue(username, password, pin, yearOfBirth)
     .then(() => {
       console.log('successfully completed')
     })
