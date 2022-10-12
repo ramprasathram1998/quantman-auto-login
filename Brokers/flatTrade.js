@@ -1,5 +1,5 @@
 const { By, until } = require('selenium-webdriver');
-const { delay, initializeBrowserDriver } = require('./helper');
+const { delay, QUANTMAN_SIGN_IN_URL, initializeBrowserDriver } = require('./helper');
 
 const doLoginIcici = async (username, password, pin) => {
   const driver = initializeBrowserDriver();
