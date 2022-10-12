@@ -11,28 +11,29 @@ Daily Cron Job runner that opens browser, do login via your broker credentials a
   - Select Secrets. And within secrets Actions (in the left side panel).
 
     1. Click New Repository Secret. Add USERNAMES => <value> (fill in your fyers broker client id's)
-      e.g XP00000, 00000PQ
+      e.g XP00000,00000PQ
     2. Click New Repository Secret. Add PASSWORDS => <value> (fill in your fyers broker client password's)
-      e.g ABCDF, ERTYUJ
+      e.g ABCDF,ERTYUJ
     3. Click New Repository Secret. Add PINS => <value> (fill in your fyers broker client pin's)
-      e.g 0000, 1111
+      e.g 0000,1111
     4. Click New Repository Secret. Add BROKERS => <value> (fill in your broker's name)
-      e.g FYERS, ANGLE_BROKING, ICICI, ALICE_BLUE, ZEBU (mandatory format)
+      e.g FYERS,ANGLE_BROKING,ICICI,ALICE_BLUE,ZEBULL(mandatory format)
     5. Click New Repository Secret. Add SECURITY_QUESTIONS1 => <value> (fill in your security questions name)
-      e.g 1,2,3,4,ABC (ZEBU) 
+      e.g 1,2,3,4,ABC (ZEBULL) 
     6. Click New Repository Secret. Add SECURITY_QUESTIONS2 => <value> (fill in your security questions name)
-      e.g 1,2,3,4,ABC (ZEBU)
+      e.g 1,2,3,4,ABC (ZEBULL)
 
     - If you don't have any fields.. Please give dummy values.. like Zebu only have security questions..
       remaining doesn't have ? so give dummy eg: 1,2,3,4,ZEBU.. this is for all fields
     - Another example.. angle broking doesn't have pin.. so give "dummy pin 1111",  it willnot be considered.. but have to give
     - All 6 fields.. matching with index..
-      eg: USERNAMES           :  11111111, 2222222, ...
-          PASSWORDS           :  oqijwihq, kjcixhw, ...
-          PINS                :  1111, 11111, ...
-          BROKERS             :  FYERS, ANGLE_BROKING, ...
-          SECURITY_QUESTIONS1 :  0, 1, 2, 3, ...
-          SECURITY_QUESTIONS2 :  0, 1, 2, 3, ...
+      eg: USERNAMES           :  11111111,2222222, ...
+          PASSWORDS           :  oqijwihq,kjcixhw, ...
+          PINS                :  1111,11111,...
+          BROKERS             :  FYERS,ANGLE_BROKING, ...
+          YEAR_OF_BIRTH       :  1998
+          SECURITY_QUESTIONS1 :  0,1,2,3,...
+          SECURITY_QUESTIONS2 :  0,1,2,3,...
 
 - *Actions*
   - Click "Actions" button at the top of the page.
@@ -42,3 +43,26 @@ Daily Cron Job runner that opens browser, do login via your broker credentials a
 - Now daily at 07:30, the enabled action will login in you into QuantMan using the credentials filled in the repository's secret.
 
 ![Help Image](/helpimage.png?raw=true)
+
+**Auto Login Supported Brokers:**
+
+*TOTP Supported Brokers:*
+
+- Fyers
+- AngelBroking
+
+*No OTP Brokers:*
+
+- Flattrade
+- Jainam duck
+- Aliceblue
+- Zebull
+
+**Add support for following brokers soon:**
+
+- Paytm 
+- ICICI
+- Motilal
+- Zerodha
+- Goodwill
+- 5paisa

@@ -1,6 +1,10 @@
-const { delay, screen, QUANTMAN_URL, fetchTOTP } = require('./helper');
-const { Builder, By, until } = require('selenium-webdriver');
-const chrome = require('selenium-webdriver/chrome');
+const { By, until } = require('selenium-webdriver');
+const { 
+  delay,
+  QUANTMAN_URL,
+  initializeBrowserDriver,
+  fetchTOTP
+} = require('./helper');
 
 const enterTOTPAndClickLogin = async (driver, totpSecretKey, isReAttempt) => {
   const TOTP = await fetchTOTP('angelbroking', totpSecretKey);
@@ -15,11 +19,8 @@ const enterTOTPAndClickLogin = async (driver, totpSecretKey, isReAttempt) => {
 };
 
 const doLoginAngleBroking = async (username, password, totpSecretKey) => {
-  var driver = new Builder()
-    .forBrowser('chrome')
-    // .setChromeOptions(new chrome.Options().headless().windowSize(screen))
-    .build();
-  
+  const driver = initializeBrowserDriver();
+
   console.log('Browser initialized');
 
   driver.manage().setTimeouts({ implicit: 3000, pageLoad: 300000, script: 30000 })

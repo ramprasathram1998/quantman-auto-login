@@ -1,6 +1,10 @@
-const { delay, screen, QUANTMAN_URL, fetchTOTP } = require('./helper');
-const { Builder, By, until, Key } = require('selenium-webdriver');
-const chrome = require('selenium-webdriver/chrome');
+const { By, until, Key } = require('selenium-webdriver');
+const {
+  delay,
+  QUANTMAN_URL,
+  fetchTOTP,
+  initializeBrowserDriver
+} = require('./helper');
 
 const emptyTOTPContainers = async (driver) => {
   const otpContainerElement = By.id('otp-container');
@@ -30,11 +34,8 @@ const enterTOTP = async (driver, totpSecretKey, isReAttempt) => {
 };
 
 const doLoginFyers = async (username, password, pin, totpSecretKey) => {
-  var driver = new Builder()
-    .forBrowser('chrome')
-    // .setChromeOptions(new chrome.Options().headless().windowSize(screen))
-    .build();
-  
+  const driver = initializeBrowserDriver();
+
   console.log('Browser initialized');
 
   driver.manage().setTimeouts({ implicit: 3000, pageLoad: 300000, script: 30000 })

@@ -1,16 +1,14 @@
-const { delay, screen, QUANTMAN_URL } = require('./helper');
-const { Builder, By, until } = require('selenium-webdriver');
-const chrome = require('selenium-webdriver/chrome');
+const { By, until } = require('selenium-webdriver');
+const { delay, QUANTMAN_URL, initializeBrowserDriver } = require('./helper');
 
-
-const getFieldValue = (value, { password, pin, yearOfBirth }) => {
+const getTextFieldValue = (textFieldName, { password, pin, yearOfBirth }) => {
   let result;
 
-  if (value.includes('M-Pin')) {
+  if (textFieldName.includes('M-Pin')) {
     result = pin;
-  } else if(value.includes('Password')) {
+  } else if(textFieldName.includes('Password')) {
     result = password;
-  } else if(value.includes('Year Of Birth')) {
+  } else if(textFieldName.includes('Year Of Birth')) {
     result = yearOfBirth;
   }
 
@@ -21,10 +19,10 @@ const recursivelyCheckAndFillValues = async (driver, args) => {
   const isAnyOtherFieldRequired = await driver.findElement(By.css("label.fsize12")).then(() => true).catch(() => false);
 
   if(isAnyOtherFieldRequired) {
-    const fieldName = await driver.findElement(By.css("label.fsize12")).getText();
-    const fieldValue = await getFieldValue(fieldName, args);
+    const textFieldName = await driver.findElement(By.css("label.fsize12")).getText();
+    const fieldValue = await getTextFieldValue(textFieldName, args);
 
-    console.log(`STEP 3.1: ENTER ${fieldName}: ${fieldValue}`);
+    console.log(`STEP 3.1: ENTER ${textFieldName}: ${fieldValue}`);
     await driver.findElement(By.css('input[type=password]')).sendKeys(fieldValue);
     await driver.findElement(By.css('button.fsize14')).click();
 
@@ -36,10 +34,8 @@ const recursivelyCheckAndFillValues = async (driver, args) => {
 };
 
 const doLoginAliceBlue = async (username, password, pin, yearOfBirth) => {
-  var driver = new Builder()
-    .forBrowser('chrome')
-    // .setChromeOptions(new chrome.Options().headless().windowSize(screen))
-    .build();
+  const driver = initializeBrowserDriver();
+
   console.log('Browser initialized');
 
   driver.manage().setTimeouts({ implicit: 3000, pageLoad: 300000, script: 30000 })

@@ -1,7 +1,5 @@
-const { delay, screen, QUANTMAN_URL } = require('./helper');
-const { Builder, By, until } = require('selenium-webdriver');
-const chrome = require('selenium-webdriver/chrome');
-
+const { By, until } = require('selenium-webdriver');
+const { delay, QUANTMAN_URL, initializeBrowserDriver } = require('./helper');
 
 const getFieldValue = (value, { password, pin, yearOfBirth }) => {
   let result;
@@ -36,10 +34,8 @@ const recursivelyCheckAndFillValues = async (driver, args) => {
 };
 
 const doLoginAliceBlue = async (username, password, pin, yearOfBirth) => {
-  var driver = new Builder()
-    .forBrowser('chrome')
-    // .setChromeOptions(new chrome.Options().headless().windowSize(screen))
-    .build();
+  const driver = initializeBrowserDriver();
+
   console.log('Browser initialized');
 
   driver.manage().setTimeouts({ implicit: 3000, pageLoad: 300000, script: 30000 })
