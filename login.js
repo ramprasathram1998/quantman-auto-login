@@ -1,11 +1,14 @@
 require('dotenv').config({ path: process.env.DOT_ENV_PATH });
 
 const FYERS = require('./Brokers/fyers');
-const ANGEL_BROKING = require('./Brokers/angleBroking');
+const ANGEL_BROKING = require('./Brokers/angelBroking');
 const ICICI = require('./Brokers/icici');
 const ZERODHA = require('./Brokers/zerodha');
 const ALICE_BLUE = require('./Brokers/aliceBlue');
-const ZEBU = require('./Brokers/zebu');
+const ZEBULL = require('./Brokers/zebull');
+const FLATTRADE = require('./Brokers/flatTrade');
+const JAINAM_DUCK = require('./Brokers/jainamDuck');
+
 const { customizedSplit } = require('./Brokers/helper');
 
 const AVAILABLE_BROKERS = {
@@ -14,7 +17,9 @@ const AVAILABLE_BROKERS = {
   ICICI,
   ZERODHA, // T-otp (so stopped)
   ALICE_BLUE,
-  ZEBU
+  ZEBULL,
+  FLATTRADE,
+  JAINAM_DUCK
 }
 
 const brokers = customizedSplit(process.env['BROKERS']);

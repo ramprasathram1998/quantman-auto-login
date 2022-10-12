@@ -5,7 +5,7 @@ const chrome = require('selenium-webdriver/chrome');
 const doLoginZerodha = async (username, password, pin) => {
   var driver = new Builder()
     .forBrowser('chrome')
-    .setChromeOptions(new chrome.Options().headless().windowSize(screen))
+    // .setChromeOptions(new chrome.Options().headless().windowSize(screen))
     .build();
   console.log('Browser initialized');
 
