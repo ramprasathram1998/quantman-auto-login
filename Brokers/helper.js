@@ -2,7 +2,7 @@ const OTPAuth = require('otpauth');
 const { Builder } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 
-const SCREEN_SIZE = { width: 640, height: 480 };
+const SCREEN_SIZE = { width: 700, height: 700 };
 const QUANTMAN_URL = 'https://www.quantman.in';
 const QUANTMAN_SIGN_IN_URL = 'https://www.quantman.in/users/sign_in';
 const ZEBU_LOGIN_URL = 'https://zebull.in/#/login';
