@@ -22,7 +22,7 @@ const recursivelyCheckAndFillValues = async (driver, args) => {
     const fieldName = await driver.findElement(By.css("label.fsize12")).getText();
     const fieldValue = await getFieldValue(fieldName, args);
 
-    console.log(`STEP 3.1: ENTER ${fieldName}: ${fieldValue}`);
+    console.log(`STEP 3.1: ENTER ${fieldName}`);
     await driver.findElement(By.css('input[type=password]')).sendKeys(fieldValue);
     await driver.findElement(By.css('button.fsize14')).click();
 
